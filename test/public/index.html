@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="ngApp"> 
+<head>
+  <base href="/">    
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+ 
+ <script src="./ng-app.js">
+ </script>
+
+</head>
+<body>
+
+  <div ng-controller="MyCtrl">
+
+    <div id="ngpo-test-client">
+      Name: 
+      <input ng-model="client.name">
+      <span>{{client.name}}</span>
+      <button ng-click="clearClientName()"
+         id="clear-name-button">
+         Clear Client Name</button>
+    </div>
+    <br>
+
+    <div>
+      DOB
+      <input type=date ng-model="client.dob">
+      <span>{{client.dob}}</span>
+    </div>
+    <br>
+
+    <div>
+      Type: 
+      <select ng-model="client.type" 
+         ng-options="type as type for type in clientTypes" >
+      </select>
+      <span>{{client.type}}</span>
+    </div>
+    <br> 
+
+    <div>
+      Payments: 
+      <button ng-click="addPayment()" id="add-payment-button">Add Payment</button>
+      <table> 
+        <tr ng-repeat="payment in payments">
+          <td><input ng-model=payment.amount></td>
+          <td>{{payment.amount}}</td>
+        </tr>
+      </table>
+    </div>
+    <br>
+
+    <div id="request">
+      Request: 
+      <input ng-model="client.request">
+      <span>{{client.request}}</span>
+    </div>
+    <br>
+
+    <div>
+      <button id="delete-city-button" ng-click="deleteCity()">Delete City</button>
+      <input ng-model="client.city">
+    </div>
+
+  </div>
+
+</body>
+
+</html
