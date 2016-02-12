@@ -59,8 +59,14 @@ var els = {
   transportationParent: {
     locator: by.id('trans-parent'),
     po: ngpo.makeParentPo, 
-    els: transPo.els
-  }
+    els: transPo.els},
+  deleteHobbyButton: {
+    locator: by.id('delete-hobby-button'),
+    po: ngpo.makeButtonWithPausePo,
+    pause: 5000},
+  hobbyInput: {
+    locator: by.model('client.hobby'),
+    po: ngpo.makeInputPo},
 
 }; 
 

@@ -58,17 +58,27 @@
     <br>
 
     <div>
-      <button id="delete-city-button" ng-click="deleteCity()">Delete City</button>
+      City: 
       <input ng-model="client.city">
+      <button id="delete-city-button" ng-click="deleteCity()">Delete City</button>
     </div>
+    <br>
 
     <div id="trans-parent">
       <div id="transportation">
-        <input ng-model="client.transportation"></div>
+        Transportation: 
+        <input ng-model="client.transportation">
         <span>{{client.transportation}}</span>
       </div>
     </div>
-    
+    <br>
+
+    <div>
+      Hobby: 
+      <input ng-model="client.hobby">
+      <button id="delete-hobby-button" ng-click=deleteHobby()>Delete Hobby</button>
+    </div>
+
   </div>
 
 </body>

@@ -86,13 +86,30 @@ describe('ngpo', function() {
 
     it('should allow po templates to be nested with a parent element', function() {
       // transportation is a seperate po template/file pulled into client po template
-      //   with all els as children of transParent
+      //   with all els as children of tra(nsParent
       clientPo.transportationParent.transportationInput.enterValue('strides'); 
 
       expect(clientPo.transportationParent.transportationInput.getValue())
         .toBe('strides');
       expect(clientPo.transportationParent.transportation.getValue())
         .toBe('strides');
+    });
+
+    it('should make a working button with pause allowing for pause time as option', 
+      function() {
+      clientPo.hobbyInput.enterValue('coloring'); 
+
+      expect(clientPo.hobbyInput.getValue()).toBe('coloring');
+
+      var d1 = new Date(); 
+      clientPo.deleteHobbyButton.click().then(function(){
+        var d2 = new Date();
+        var ts = d2 - d1; 
+        expect(ts).toBeGreaterThan(4999); 
+      });
+
+      expect(clientPo.hobbyInput.getValue()).toBe('');
+
     });
 
 

@@ -36,6 +36,10 @@ function MyCtrl($scope) {
     if(okToDelete) {
       $scope.client.city = '';
     } 
-  }
-  
+  };
+
+  $scope.deleteHobby = function() {
+    $scope.client.hobby = '';
+  };
+
 }
