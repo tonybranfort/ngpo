@@ -1,4 +1,5 @@
 var ngpo = require('../lib/index.js'); 
+var transPo = require('./transportation.po.js');
 
 var els = {
   nameInput: {
@@ -55,10 +56,16 @@ var els = {
   deleteCityButton: {
     locator: by.id('delete-city-button'),
     po: ngpo.makeButtonPo},
+  transportationParent: {
+    locator: by.id('trans-parent'),
+    po: ngpo.makeParentPo, 
+    els: transPo.els
+  }
 
 }; 
 
 var pos = ngpo.makePos(els); 
+pos = ngpo.makePos(transPo.els, pos);
 
 module.exports = pos; 
 
