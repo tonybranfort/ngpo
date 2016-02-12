@@ -1,5 +1,5 @@
 # ngpo
-Simple template to create page objects for protractor. 
+Simple template to create page objects for AngularJs Protractor tests
 
 # I want: 
 * Protractor tests as quick to write, easy to read and ignorant of the page elements as possible.
@@ -125,6 +125,6 @@ describe('client', function() {
 
 ```
 
-### See test\test.js and test\client.po.js for more examples. 
+See [test\test.js](https://github.com/tonybranfort/ngpo/blob/master/test/test.js) and [test\client.po.js](https://github.com/tonybranfort/ngpo/blob/master/test/client.po.js) for more examples. 
 
 

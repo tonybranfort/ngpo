@@ -1,7 +1,7 @@
 {
   "name": "ngpo",
   "version": "1.0.0",
-  "description": "AngularJS page objects and template for creating page objects",
+  "description": "Simple template to create page objects for AngularJS Protractor tests",
   "main": "lib/index.js",
   "dependencies": {
   },
@@ -9,9 +9,6 @@
     "express": "4.13.1"
   },
   "scripts": {
-    "test": "make test",
-    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
