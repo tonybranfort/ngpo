@@ -1,5 +1,5 @@
 # ngpo
-### AngularJS Protractor Page Object Template & PO Creator
+Simple template to create page objects for protractor. 
 
 # I want: 
 * Protractor tests as quick to write, easy to read and ignorant of the page elements as possible.
@@ -7,7 +7,7 @@
 * Consistent methods across applicable page objects including: 
 	- getValue
 	- enterValue
-  - Protractor methods should not be affected unless intended to be overwritten (eg; click() replaced with click w/ pause).  
+  - No impact to existing protractor methods  
 * Simple and consistent way of accessing repeating and nested page elements. 
 	- listElement.getRow(n).someElementInList
 * Ability to easily incorporate other html widgets into ngpo. 
@@ -71,7 +71,7 @@ describe('client', function() {
 
 ## List
 
-Nest another 'els' object in your list object ('payments' here): 
+Nest your list elements as another 'els' object in your list object ('payments' here): 
 ```javascript
 var ngpo = require('ngpo'); 
 
