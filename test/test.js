@@ -42,6 +42,7 @@ describe('ngpo', function() {
 
       clientPo.addPaymentButton.click();
       expect(clientPo.payments.count()).toBe(1);
+      expect(clientPo.payments.getCount()).toBe(1);
       clientPo.payments.getRow(0).amountInput.enterValue(5);
       expect(clientPo.payments.getRow(0).amountInput.getValue()).toBe('5'); 
       expect(clientPo.payments.getRow(0).amount.getValue()).toBe('5'); 
