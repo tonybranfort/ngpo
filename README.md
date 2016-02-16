@@ -4,7 +4,7 @@ Simple template to create page objects and helper functions for AngularJs Protra
 ### I want: 
 * Protractor tests as quick to write, easy to read and ignorant of the page elements as possible.
 * Simple and consistent protractor page objects which can be nested.  
-* Consistent Protractor methods across applicable elements and html widgets including: 
+* Consistent Protractor test methods across applicable elements and html widgets including: 
 	- getValue
 	- enterValue
   - clear
@@ -129,13 +129,13 @@ See [test\test.js](https://github.com/tonybranfort/ngpo/blob/master/test/test.js
 
 ## Documentation
 
-How to create your own _makePo_ functions: See [`makeDefaultPo`](#makeDefaultPo). 
+#### How to 
+* Create your own _makePo_ functions: See [`makeDefaultPo`](#makeDefaultPo). 
+* Create your own _makePo_ and github/npm it: See [ngpo-ui-select](https://www.npmjs.com/package/ngpo-ui-select). 
+* [Nest ngpo page objects](#nesting-page-objects).
+* [Append custom functions to page object elements](#custom-fns)
 
-How to create your own _makePo_ and github/npm it: See [ngpo-ui-select](https://www.npmjs.com/package/ngpo-ui-select). 
-
-How to [nest ngpo page objects](#nesting-page-objects).
-
-### Functions available:  
+### ngpo Functions available:  
 * [`makePos`](#makePos)
 * [`makeDefaultPo`](#makeDefaultPo)
 * [`makeTextPo`](#makeTextPo)
@@ -170,8 +170,8 @@ How to [nest ngpo page objects](#nesting-page-objects).
 * acceptAlert
 * dismissAlert
 
-<a name="makePos"></a>
-#### makePos(els) 
+
+#### <a name="makePos">makePos(els)</a>
 Returns a Page Object: An object-literal of Protractor ElementFinder objects possibly with methods appended.  Methods appended are based on the els object passed in. 
 
 `makePos` calls the function assigned to the `po` property for every object in the `els` object.  The `po` function is called with (1) the `locator` and (2) the respective els object.  
@@ -217,8 +217,7 @@ makeInputPo(
 
 And return an object with the property `nameInput` which would be a protractor ElementFinder with getValue and enterValue methods appended (from makeInputPo).  
 
-<a name="makeDefaultPo"></a>
-### makeDefaultPo(elOrLoc, options)
+#### <a name="makeDefaultPo">makeDefaultPo(elOrLoc, options)</a>
 Returns a Protractor ElementFinder without any additional functions appended.  
 
 Determines if `elOrLoc` is a Protractor ElementFinder or locator.  If it is a locator, creates an ElementFinder from it and returns that ElementFinder.  Otherwise, returns ElementFinder as-is. 
@@ -249,8 +248,7 @@ var els = {
 
 ```
 
-<a name="makeTextPo"></a>
-### makeTextPo(elOrLoc, options)
+#### <a name="makeTextPo">makeTextPo(elOrLoc, options)</a>
 Returns a Protractor ElementFinder with one appended function: 
   * getValue - returns element.getText()
 
@@ -271,8 +269,7 @@ var pos = ngpo.makePos(els);
 
 ```
 
-<a name="makeInputPo"></a>
-### makeInputPo(elOrLoc, options)
+#### <a name="makeInputPo">makeInputPo(elOrLoc, options)</a>
 Returns a Protractor ElementFinder for html ```<input>``` with these appended functions: 
   * getValue - returns element.getText()
   * enterValue(value) : returns ```element.click().clear().sendKeys(value).sendKeys(protractor.Key.TAB)```
@@ -298,8 +295,7 @@ var clientPo = ngpo.makePos(els);
 ```
 
 
-<a name="makeDateInputPo"></a>
-### makeDateInputPo(elOrLoc, options)
+#### <a name="makeDateInputPo">makeDateInputPo(elOrLoc, options)</a>
 Returns a Protractor ElementFinder for html ```<input type=date>``` tags with these appended functions: 
   * getValue - See [`makeInputPo`](#makeInputPo)
   * enterValue(value) - See `makeInputPo`
@@ -327,8 +323,7 @@ var clientPo = ngpo.makePos(els);
 
 ```
 
-<a name="makeButtonPo"></a>
-### makeButtonPo(elOrLoc, options)
+#### <a name="makeButtonPo">makeButtonPo(elOrLoc, options)</a>
 Returns a Protractor ElementFinder with no appended functions. 
 
 Arguments: See [`makeDefaultPo`](#makeDefaultPo) and [`makePos`](#makePos).
@@ -351,8 +346,7 @@ var clientPo = ngpo.makePos(els);
 ```
 
 
-<a name="makeButtonWithPausePo"></a>
-### makeButtonWithPausePo(elOrLoc, options)
+#### <a name="makeButtonWithPausePo">makeButtonWithPausePo(elOrLoc, options)</a>
 Returns a Protractor ElementFinder with this amended function.
   - `click()` : sleeps for `options.pause` milleseconds after click()
     ```element.click().then(function() {pause(options.pause);});``` 
@@ -379,8 +373,7 @@ var clientPo = ngpo.makePos(els);
 
 ```
 
-<a name="makeDdSelectPo"></a>
-### makeDdSelectPo(elOrLoc, options)
+#### <a name="makeDdSelectPo">makeDdSelectPo(elOrLoc, options)</a>
 Returns a Protractor ElementFinder for html ```<select>``` tags
 with these appended functions : 
   * getValue - returns ```element.$('option:checked').getText()```
@@ -406,8 +399,7 @@ var clientPo = ngpo.makePos(els);
 
 ```
 
-<a name="makeParentPo"></a>
-### makeParentPo(elOrLoc, options)
+#### <a name="makeParentPo">makeParentPo(elOrLoc, options)</a>
 Returns a Protractor ElementFinder which can have sub-ElementFinders on it. 
 
 Arguments: See [`makeDefaultPo`](#makeDefaultPo) and [`makePos`](#makePos).
@@ -440,8 +432,7 @@ var clientPo = ngpo.makePos(els);
 
 ```
 
-<a name="makeListPo"></a>
-### makeListPo(elOrLoc, options)
+#### <a name="makeListPo">makeListPo(elOrLoc, options)</a>
 Returns a Protractor element.all object with nested protractor ElementFinders.  It has these appended functions: 
   * getRow(n) 
   * getRow(n).subPo.poFn()
@@ -478,8 +469,7 @@ var clientPo = ngpo.makePos(els);
 
 ```
 
-<a name="nesting-page-objects"></a>
-### How to Nest Page Objects
+#### <a name="nesting-page-objects">How to Nest Page Objects</a>
 
 Example to nest the transportation page object into a client page object. 
 
@@ -535,3 +525,29 @@ The protractor tests would refer to these like this:
 
 
 ```
+
+#### <a name="#custom-fns">How to append custom functions to page object elements</a>
+Custom functions can be included in the els `fns` property object.  Custom functions are called with the ElementFinder and the options object (see [makeDefaultPo](#makeDefaultPo)) so that you can refer to them in the custom function.  
+
+Example
+```javascript
+
+var els = {
+  hobbyInput: {
+    locator: by.model('client.hobby'),
+    po: ngpo.makeInputPo,
+    pause: 5000,
+    fns: {
+      getClasses: function(el, options) {return el.getAttribute('class');},
+      clickWithPause: function(el, options) {
+        return el.click().then(function() {browser.sleep(options.pause);})
+      }}
+  }
+}; 
+
+// test example
+  expect(clientPo.hobbyInput.getClasses()).toContain('yada');
+  clientPo.hobbyInput.clickWithPause();  // pauses 5 seconds after click()
+
+```
+
