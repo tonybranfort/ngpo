@@ -36,6 +36,7 @@ describe('ngpo', function() {
       expect(clientPo.type.getValue()).toBe('cranky'); 
     });
 
+
     it('should make a working list element', function() {
       expect(clientPo.payments.count()).toBe(0);
 
@@ -58,6 +59,16 @@ describe('ngpo', function() {
       clientPo.request.rInput.enterValue('be nice'); 
       expect(clientPo.request.rInput.getValue()).toBe('be nice'); 
       expect(clientPo.request.rText.getValue()).toBe('be nice'); 
+    });
+
+    it('should append functions included in els.fns', function() {
+      browser.get('/');
+      expect(clientPo.hobbyInput.getClasses()).toContain('yada');
+      expect(clientPo.hobbyInput.getClasses()).toContain('hocka');
+      expect(clientPo.hobbyInput.getClasses()).not.toContain('bark');
+
+      expect(clientPo.deleteHobbyButton.hasYadaClass()).toBe(true); 
+      expect(clientPo.deleteHobbyButton.hasBarkClass()).toBe(false); 
     });
 
     it('should handle alerts', function() {

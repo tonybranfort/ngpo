@@ -63,10 +63,17 @@ var els = {
   deleteHobbyButton: {
     locator: by.id('delete-hobby-button'),
     po: ngpo.makeButtonWithPausePo,
-    pause: 5000},
+    pause: 5000,
+    fns: {
+      hasYadaClass: ngpo.poFns.makeHasClassFn('yada'),
+      hasBarkClass: ngpo.poFns.makeHasClassFn('bark')}
+    },
   hobbyInput: {
     locator: by.model('client.hobby'),
-    po: ngpo.makeInputPo},
+    po: ngpo.makeInputPo,
+    fns: {
+      getClasses: function(el, options) {return el.getAttribute('class');}
+    }},
 
 }; 
 
