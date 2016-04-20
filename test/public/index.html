@@ -80,6 +80,12 @@
         >Delete Hobby</button>
     </div>
 
+    <div id="all-bout-rocks">
+      <input ng-model="client.rock" class="hard">
+      <button id="add-rock-button" ng-click=addRock(client.rock)>Add Rock</button>
+        <div ng-repeat="rock in client.rocks">{{rock}}</div>
+    </div>      
+
   </div>
 
 </body>

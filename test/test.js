@@ -124,5 +124,24 @@ describe('ngpo', function() {
 
     });
 
+    it('should allow functions on nested elements of makeParentPos', 
+      function() {
+        expect(clientPo.allBoutRocks.rockInput.getClasses()).toContain('hard');
+    });
+
+    it('should allow a list nested in a parent po', 
+      function() {
+      clientPo.allBoutRocks.rockInput.enterValue('round'); 
+      clientPo.allBoutRocks.addRockButton.click(); 
+
+      clientPo.allBoutRocks.rockInput.enterValue('square'); 
+      clientPo.allBoutRocks.addRockButton.click(); 
+
+      clientPo.allBoutRocks.rockInput.enterValue('purple'); 
+      clientPo.allBoutRocks.addRockButton.click(); 
+
+      expect(clientPo.allBoutRocks.rocks.count()).toBe(3); 
+    });
+
 
 });  // end of inner describe 

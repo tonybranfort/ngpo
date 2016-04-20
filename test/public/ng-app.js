@@ -5,7 +5,8 @@ function MyCtrl($scope) {
   $scope.client = 
       {name: undefined,
        dob: undefined,
-       request: undefined};
+       request: undefined,
+       rocks: []};
 
   $scope.clearClientName = function() {
     $scope.client.name = '';
@@ -26,6 +27,10 @@ function MyCtrl($scope) {
     // {date: '03/18/2015',
     //  amount: '17'},
   ];
+
+  $scope.addRock = function(rock) {
+    $scope.client.rocks.push(rock); 
+  };
 
   $scope.addPayment = function() {
     $scope.payments.push({date:'', amount: ''});

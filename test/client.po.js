@@ -74,6 +74,33 @@ var els = {
     fns: {
       getClasses: function(el, options) {return el.getAttribute('class');}
     }},
+  allBoutRocks: {
+    locator: by.id('all-bout-rocks'),
+    po: ngpo.makeParentPo,
+    els: {
+      rockInput: {
+        locator: by.model('client.rock'),
+        po: ngpo.makeInputPo,
+        fns: {
+          getClasses: function(el, options) {return el.getAttribute('class');},
+        }
+      },
+      addRockButton: {
+        locator: by.id('add-rock-button'),
+        po: ngpo.makeButtonPo
+      },
+      rocks: {
+        locator: by.repeater('rock in client.rocks'),
+        po: ngpo.makeListPo,
+        els: {
+          rock: {
+            locator: by.binding('rock'),
+            po: ngpo.makeTextPo
+          }
+        }
+      }
+    }
+  }
 
 }; 
 
