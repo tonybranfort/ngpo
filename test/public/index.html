@@ -80,10 +80,17 @@
         >Delete Hobby</button>
     </div>
 
+    <button id="add-rock-button">Add Rock with same Id but not child of all-bout-rocks</button>
+    <div id="stone"><span>same id (stone) but not nested in all-bout-rocks.stones</span></div>
+
+
     <div id="all-bout-rocks">
+      <div id="stones">
+        <div id="stone"><span>astone!</span></div>
+      </div>
       <input ng-model="client.rock" class="hard">
       <button id="add-rock-button" ng-click=addRock(client.rock)>Add Rock</button>
-        <div ng-repeat="rock in client.rocks">{{rock}}</div>
+      <div ng-repeat="rock in client.rocks"><span>{{rock}}</span></div>
     </div>      
 
   </div>

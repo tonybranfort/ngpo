@@ -129,18 +129,34 @@ describe('ngpo', function() {
         expect(clientPo.allBoutRocks.rockInput.getClasses()).toContain('hard');
     });
 
+    it('should allow a parents nested in a parent po', function() {
+      expect(clientPo.allBoutRocks.stones.stone.getValue()).toBe('astone!');
+    });
+
     it('should allow a list nested in a parent po', 
       function() {
+
+      // var e = element(by.id('all-bout-rocks'));
+      // var l   = by.repeater('rock in client.rocks');
+      // var abr = e.all(l);
+
       clientPo.allBoutRocks.rockInput.enterValue('round'); 
+      expect(clientPo.allBoutRocks.rockInput.getValue()).toBe('round'); 
       clientPo.allBoutRocks.addRockButton.click(); 
 
       clientPo.allBoutRocks.rockInput.enterValue('square'); 
       clientPo.allBoutRocks.addRockButton.click(); 
 
       clientPo.allBoutRocks.rockInput.enterValue('purple'); 
-      clientPo.allBoutRocks.addRockButton.click(); 
+      clientPo.allBoutRocks.addRockButton.click()
+      .then(function() {
+        // expect(abr.count()).toBe(3); 
+        expect(clientPo.allBoutRocks.rocks.count()).toBe(3); 
+        expect(clientPo.allBoutRocks.rocks.getRow(0)
+          .rock.getValue()).toBe('round'); 
+      }); 
 
-      expect(clientPo.allBoutRocks.rocks.count()).toBe(3); 
+
     });
 
 

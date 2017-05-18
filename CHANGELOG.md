@@ -1,3 +1,6 @@
+# v1.0.3
+- Fix to makeParentPo
+
 # v1.0.2
 - Fix Issue #1: Custom functions are not being attached to po if it is sub-element of 'makeParentPo'
 - Fix Issue #2: makeListPo elements cannot be nested within makeParentPo

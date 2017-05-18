@@ -89,6 +89,16 @@ var els = {
         locator: by.id('add-rock-button'),
         po: ngpo.makeButtonPo
       },
+      stones: {
+        locator: by.id('stones'),
+        po: ngpo.makeParentPo,
+        els: {
+          stone: {
+            locator: by.id('stone'),
+            po: ngpo.makeTextPo
+          }
+        }
+      },
       rocks: {
         locator: by.repeater('rock in client.rocks'),
         po: ngpo.makeListPo,
