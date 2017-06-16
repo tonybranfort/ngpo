@@ -1,5 +1,5 @@
 # ngpo
-Simple template to create page objects and helper functions for AngularJs Protractor tests.
+Simple template to create page objects and helper functions for AngularJs Protractor tests.  
 
 ### I want: 
 * Protractor tests as quick to write, easy to read and ignorant of the page elements as possible.
@@ -13,6 +13,8 @@ Simple template to create page objects and helper functions for AngularJs Protra
 	- listElement.getRow(n).someElementInList
 * Ability to easily incorporate other html widgets into ngpo. 
 * Page Object code that's not repeated.  
+
+Tested with Protractor versions 2.5 and 5.1.
 
 ## Examples 
 

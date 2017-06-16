@@ -1,3 +1,7 @@
+# v1.0.4
+- Fix to work with Protractor v5.1 (test of locator failed; might have also failed in Protractor versions 4.x &/or 3.x). 
+- No breaking changes
+
 # v1.0.3
 - Fix to makeParentPo
 
