@@ -1,3 +1,6 @@
+# v1.1.0
+- feat: Add 'getValue' function to parentPo (result from makeParentPo()).  Issue #3.  parentPo getValue() returns full text value of all children.  See test/test.js clientPo.allBoutRocks.getValue() for example. 
+
 # v1.0.4
 - Fix to work with Protractor v5.1 (test of locator failed; might have also failed in Protractor versions 4.x &/or 3.x). 
 - No breaking changes

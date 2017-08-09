@@ -154,6 +154,11 @@ describe('ngpo', function() {
         expect(clientPo.allBoutRocks.rocks.count()).toBe(3); 
         expect(clientPo.allBoutRocks.rocks.getRow(0)
           .rock.getValue()).toBe('round'); 
+        expect(clientPo.allBoutRocks.getValue()).toContain('astone');
+        expect(clientPo.allBoutRocks.getValue()).toContain('round');
+        expect(clientPo.allBoutRocks.getValue()).toContain('square');
+        expect(clientPo.allBoutRocks.getValue()).toContain('purple');
+
       }); 
 
 
