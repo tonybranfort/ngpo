@@ -164,5 +164,28 @@ describe('ngpo', function() {
 
     });
 
+    it('should handle isVisible for ng-show', function() {
+      expect(clientPo.showme.isPresent()).toBe(true);
+      expect(clientPo.showme.isDisplayed()).toBe(true);
+      expect(clientPo.showme.isVisible()).toBe(true);
+      clientPo.showmeButton.click()
+      .then(function() {
+        expect(clientPo.showme.isPresent()).toBe(true);
+        expect(clientPo.showme.isDisplayed()).toBe(false);
+        expect(clientPo.showme.isVisible()).toBe(false);
+      });
+    });
+
+    it('should handle isVisible for ng-if', function() {
+      expect(clientPo.ifme.isPresent()).toBe(true);
+      expect(clientPo.ifme.isDisplayed()).toBe(true);
+      expect(clientPo.ifme.isVisible()).toBe(true);
+      clientPo.ifmeButton.click()
+      .then(function() {
+        expect(clientPo.ifme.isPresent()).toBe(false);
+        expect(clientPo.ifme.isVisible()).toBe(false);
+      });
+    });
+
 
 });  // end of inner describe 

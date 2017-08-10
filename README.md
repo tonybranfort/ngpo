@@ -8,6 +8,7 @@ Simple template to create page objects and helper functions for AngularJs Protra
 	- getValue
 	- enterValue
   - clear
+  - isVisible (true if both isPresent and isDisplayed)
   - No impact to existing protractor methods (unless explicitly intended)
 * Simple and consistent way of accessing repeating and nested page elements. 
 	- listElement.getRow(n).someElementInList

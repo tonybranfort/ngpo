@@ -89,11 +89,19 @@
         <div id="stone"><span>astone!</span></div>
       </div>
       <input ng-model="client.rock" class="hard">
-      <button id="add-rock-button" ng-click=addRock(client.rock)>Add Rock</button>
+      <button id="add-rock-button" ng-click="addRock(client.rock)">
+        Add Rock</button>
       <div ng-repeat="rock in client.rocks"><span>{{rock}}</span></div>
     </div>      
 
-  </div>
+    <div id="if-show">
+      <div id="showme" ng-show="showit">ShowMe?</div>
+      <div id="ifme" ng-if="ifit">IfMe?</div>
+      <button id="showme-button" ng-click="toggleShowMe()">Toggle ShowMe</button>
+      <button id="ifme-button" ng-click="toggleIfMe()">Toggle IfMe</button>
+
+    </div>
+  </div> <!-- end of ctrl --> 
 
 </body>
 

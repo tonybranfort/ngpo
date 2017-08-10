@@ -28,6 +28,9 @@ function MyCtrl($scope) {
     //  amount: '17'},
   ];
 
+  $scope.showit = true; 
+  $scope.ifit = true; 
+
   $scope.addRock = function(rock) {
     $scope.client.rocks.push(rock); 
   };
@@ -45,6 +48,14 @@ function MyCtrl($scope) {
 
   $scope.deleteHobby = function() {
     $scope.client.hobby = '';
+  };
+
+  $scope.toggleShowMe = function() {
+    $scope.showit = !$scope.showit; 
+  };
+
+  $scope.toggleIfMe = function() {
+    $scope.ifit = !$scope.ifit; 
   };
 
 }

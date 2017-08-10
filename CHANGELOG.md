@@ -1,3 +1,6 @@
+# v1.2.0
+- feat: Add 'isVisible' function. Issue #4. Returns true (in promise) if el.isPresent() and el.isDisplayed().
+
 # v1.1.0
 - feat: Add 'getValue' function to parentPo (result from makeParentPo()).  Issue #3.  parentPo getValue() returns full text value of all children.  See test/test.js clientPo.allBoutRocks.getValue() for example. 
 

@@ -74,6 +74,18 @@ var els = {
     fns: {
       getClasses: function(el, options) {return el.getAttribute('class');}
     }},
+  showme: {
+    locator: by.id('showme'),
+    po: ngpo.makeTextPo},
+  ifme: {
+    locator: by.id('ifme'),
+    po: ngpo.makeTextPo},
+  showmeButton: {
+    locator: by.id('showme-button'),
+    po: ngpo.makeButtonPo},
+  ifmeButton: {
+    locator: by.id('ifme-button'),
+    po: ngpo.makeButtonPo},
   allBoutRocks: {
     locator: by.id('all-bout-rocks'),
     po: ngpo.makeParentPo,
