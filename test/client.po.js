@@ -86,6 +86,16 @@ var els = {
   ifmeButton: {
     locator: by.id('ifme-button'),
     po: ngpo.makeButtonPo},
+  funnyInput: {
+    locator: by.model('client.funny'),
+    po: ngpo.makeInputPo,
+    fns: {
+      inputAddedVals: (funnyInputEl, options, val1, val2) => {
+        var addedVals = val1 + val2; 
+        return funnyInputEl.enterValue(addedVals);
+      }
+    }
+  },
   allBoutRocks: {
     locator: by.id('all-bout-rocks'),
     po: ngpo.makeParentPo,

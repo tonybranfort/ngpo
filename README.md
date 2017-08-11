@@ -1,25 +1,34 @@
 # ngpo
-Simple template to create page objects and helper functions for AngularJs Protractor tests.  
+Create page objects with helper functions for [AngularJs Protractor](http://www.protractortest.org/#/) tests using a simple object template.
+
+Version 2.x upgrade note: There are no breaking npgo api changes with v2.x but nodejs 6.x or greater is required.  
 
 ### I want: 
 * Protractor tests as quick to write, easy to read and ignorant of the page elements as possible.
 * Simple and consistent protractor page objects which can be nested.  
 * Consistent Protractor test methods across applicable elements and html widgets including: 
-	- getValue
-	- enterValue
-  - clear
-  - isVisible (true if both isPresent and isDisplayed)
+  - **enterValue** `clientPo.name.enterValue('franky');` 
+  - **getValue** `expect(clientPo.name.getValue()).toBe('franky');`
+  - **clear** `clientPo.name.clear();` 
+  - **isVisible** (true if both isPresent and isDisplayed) `expect(clientPo.name.isVisible()).toBe(true);` 
   - No impact to existing protractor methods (unless explicitly intended)
 * Simple and consistent way of accessing repeating and nested page elements. 
-	- listElement.getRow(n).someElementInList
+	- listElement.getRow(n).someElementInList `expect(clientPo.payments.getRow(1).amount.getValue()).toBe('423');`
+* Ability to attach custom functions to page objects.
 * Ability to easily incorporate other html widgets into ngpo. 
 * Page Object code that's not repeated.  
 
-Tested with Protractor versions 2.5 and 5.1.
+Install with `npm install ngpo`.  
+
+**ngpo v2.x**: requires nodejs 6.x or greater (no breaking api changes from ngpo v1.x).  Tested on Protractor 5.1. 
+
+**ngpo v1.x**: Tested with Protractor versions 2.5 and 5.1.
 
 ## Examples 
 
-Create a page object of Input, Dropdown & Button elements using [jsfiddle ngpo example](https://jsfiddle.net/tbmpls/vm6sL9zv/). 
+See [test\test.js](https://github.com/tonybranfort/ngpo/blob/master/test/test.js) and [test\client.po.js](https://github.com/tonybranfort/ngpo/blob/master/test/client.po.js) for a full set of examples. 
+
+#### Create a page object of Input, Dropdown & Button elements using [jsfiddle ngpo example](https://jsfiddle.net/tbmpls/vm6sL9zv/). 
 ```javascript
 var ngpo = require('ngpo'); 
 
@@ -69,7 +78,7 @@ describe('client', function() {
 
 ```
 
-Create a list page object using [jsfiddle ngpo example](https://jsfiddle.net/tbmpls/vm6sL9zv/).
+#### Create a list page object using [jsfiddle ngpo example](https://jsfiddle.net/tbmpls/vm6sL9zv/).
 ```javascript
 var ngpo = require('ngpo'); 
 
@@ -126,8 +135,6 @@ describe('client', function() {
 });
 
 ```
-
-See [test\test.js](https://github.com/tonybranfort/ngpo/blob/master/test/test.js) and [test\client.po.js](https://github.com/tonybranfort/ngpo/blob/master/test/client.po.js) for more examples. 
 
 
 ## Documentation
@@ -221,9 +228,9 @@ makeInputPo(
 And return an object with the property `nameInput` which would be a protractor ElementFinder with getValue and enterValue methods appended (from makeInputPo).  
 
 #### <a name="makeDefaultPo">makeDefaultPo(elOrLoc, options)</a>
-Returns a Protractor ElementFinder without any additional functions appended.  
+Returns a Protractor ElementFinder with only the `isVisible` ngpo function appended.  
 
-Determines if `elOrLoc` is a Protractor ElementFinder or locator.  If it is a locator, creates an ElementFinder from it and returns that ElementFinder.  Otherwise, returns ElementFinder as-is. 
+Determines if `elOrLoc` is a Protractor ElementFinder or locator.  If it is a locator, creates an ElementFinder from it and returns that ElementFinder.  Otherwise, returns ElementFinder as-is.  `options` is the els object for the page object being created;  eg, `{locator: by.binding('client.name'), po: ngpo.makeTextPo}`. 
 
 Every makeXxxPo function calls this function first.  Custom makeXxxPo functions should also call this function first as well which will ensure that it will work as a 'sub' PO in list and parent elements.
 
@@ -529,8 +536,8 @@ The protractor tests would refer to these like this:
 
 ```
 
-#### <a name="#custom-fns">How to append custom functions to page object elements</a>
-Custom functions can be included in the els `fns` property object.  Custom functions are called with the ElementFinder and the options object (see [makeDefaultPo](#makeDefaultPo)) so that you can refer to them in the custom function.  
+#### <a name="custom-fns">How to append custom functions to page object elements</a>
+Custom functions can be included in the els `fns` property object.  Custom functions are called with the ElementFinder and the options object (see [makeDefaultPo](#makeDefaultPo)), so that you can refer to them in the custom function, and the arguments that you call the function with from the protractor script.  
 
 Example
 ```javascript
@@ -545,12 +552,27 @@ var els = {
       clickWithPause: function(el, options) {
         return el.click().then(function() {browser.sleep(options.pause);})
       }}
-  }
+  },
+  funnyInput: {
+    locator: by.model('client.funny'),
+    po: ngpo.makeInputPo,
+    fns: {
+      inputAddedVals: (funnyInputEl, options, val1, val2) => {
+        var addedVals = val1 + val2; 
+        return funnyInputEl.enterValue(addedVals);
+      }
+    }
+  }  
 }; 
 
 // test example
   expect(clientPo.hobbyInput.getClasses()).toContain('yada');
   clientPo.hobbyInput.clickWithPause();  // pauses 5 seconds after click()
+
+  clientPo.funnyInput.inputAddedVals(3,4)
+  .then(function(){
+    expect(clientPo.funnyInput.getValue()).toBe('7');
+  });
 
 ```
 

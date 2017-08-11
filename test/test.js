@@ -187,5 +187,13 @@ describe('ngpo', function() {
       });
     });
 
+    it('should handle custom functions with multiple arguments', function() {
+      expect(clientPo.funnyInput.getValue()).toBe('0');
+      clientPo.funnyInput.inputAddedVals(3,4)
+      .then(function(){
+        expect(clientPo.funnyInput.getValue()).toBe('7');
+      });
+    });
+
 
 });  // end of inner describe 

@@ -1,3 +1,7 @@
+# v2.0.0
+- feat: Allow arguments to custom functions.
+- Breaking changes: There are no breaking changes to the ngpo api but v6.x or greater of nodejs is required for ngpo v2.x.  
+
 # v1.2.0
 - feat: Add 'isVisible' function. Issue #4. Returns true (in promise) if el.isPresent() and el.isDisplayed().
 

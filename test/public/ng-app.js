@@ -6,6 +6,7 @@ function MyCtrl($scope) {
       {name: undefined,
        dob: undefined,
        request: undefined,
+       funny: 0,
        rocks: []};
 
   $scope.clearClientName = function() {
