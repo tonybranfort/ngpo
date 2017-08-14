@@ -13,7 +13,8 @@ var els = {
     po: ngpo.makeButtonPo},
   dobInput: {
     locator: by.model('client.dob'),
-    po: ngpo.makeDateInputPo},
+    po: ngpo.makeDateInputPo,
+    fns: {clearByBs: ngpo.poFns.clearByBs}},
   dob: {
     locator: by.binding('client.dob'),
     po: ngpo.makeTextPo},
@@ -90,6 +91,7 @@ var els = {
     locator: by.model('client.funny'),
     po: ngpo.makeInputPo,
     fns: {
+      clearByBs: ngpo.poFns.clearByBs,
       inputAddedVals: (funnyInputEl, options, val1, val2) => {
         var addedVals = val1 + val2; 
         return funnyInputEl.enterValue(addedVals);

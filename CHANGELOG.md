@@ -1,3 +1,6 @@
+# v2.1.0
+- feat: Add `poFns.clearByBs` function.  Use to clear a date field in Chrome.  See Protractor Issue [#562](https://github.com/angular/protractor/issues/562).  See example in ngpo readme [How to append custom functions](https://github.com/tonybranfort/ngpo#custom-fns)
+
 # v2.0.0
 - feat: Allow arguments to custom functions.
 - Breaking changes: There are no breaking changes to the ngpo api but v6.x or greater of nodejs is required for ngpo v2.x.  

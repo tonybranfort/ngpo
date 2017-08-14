@@ -196,4 +196,34 @@ describe('ngpo', function() {
     });
 
 
+    it('should clear text values correctly', () => {
+      clientPo.nameInput.enterValue('Bobbyrama')
+      .then(() => {
+        expect(clientPo.nameInput.getValue()).toBe('Bobbyrama'); 
+        clientPo.nameInput.clear();
+        expect(clientPo.nameInput.getValue()).toBe(''); 
+      }); 
+    });
+
+    it('should clear date values correctly', () => {
+      clientPo.dobInput.enterValue('01/02/1952')
+      .then(() => {
+        expect(clientPo.dobInput.getValue()).toBe('1952-01-02');
+        // clientPo.dobInput.clear() // FAILS on Chrome Protractor Issue # 562
+        clientPo.dobInput.clearByBs();  
+        expect(clientPo.dobInput.getValue()).toBe(''); 
+      }); 
+
+    });
+
+    it('should clear number values correctly', () => {
+      clientPo.funnyInput.enterValue(9)
+      .then(() => {
+        expect(clientPo.funnyInput.getValue()).toBe('9');
+        clientPo.funnyInput.clear();
+        expect(clientPo.funnyInput.getValue()).toBe(''); 
+      }); 
+
+    });
+
 });  // end of inner describe 

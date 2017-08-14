@@ -1,15 +1,12 @@
 # ngpo
 Create page objects with helper functions for [AngularJs Protractor](http://www.protractortest.org/#/) tests using a simple object template.
 
-Version 2.x upgrade note: There are no breaking npgo api changes with v2.x but nodejs 6.x or greater is required.  
-
 ### I want: 
 * Protractor tests as quick to write, easy to read and ignorant of the page elements as possible.
 * Simple and consistent protractor page objects which can be nested.  
 * Consistent Protractor test methods across applicable elements and html widgets including: 
   - **enterValue** `clientPo.name.enterValue('franky');` 
   - **getValue** `expect(clientPo.name.getValue()).toBe('franky');`
-  - **clear** `clientPo.name.clear();` 
   - **isVisible** (true if both isPresent and isDisplayed) `expect(clientPo.name.isVisible()).toBe(true);` 
   - No impact to existing protractor methods (unless explicitly intended)
 * Simple and consistent way of accessing repeating and nested page elements. 
@@ -20,7 +17,7 @@ Version 2.x upgrade note: There are no breaking npgo api changes with v2.x but n
 
 Install with `npm install ngpo`.  
 
-**ngpo v2.x**: requires nodejs 6.x or greater (no breaking api changes from ngpo v1.x).  Tested on Protractor 5.1. 
+**ngpo v2.x**: requires nodejs 6.x or greater (no breaking api changes from ngpo v1.x).  Tested on Protractor 5.1.2 with Chrome and chromedriver 2.31. 
 
 **ngpo v1.x**: Tested with Protractor versions 2.5 and 5.1.
 
@@ -140,10 +137,10 @@ describe('client', function() {
 ## Documentation
 
 #### How to 
-* Create your own _makePo_ functions: See [`makeDefaultPo`](#makeDefaultPo). 
-* Create your own _makePo_ and github/npm it: See [ngpo-ui-select](https://www.npmjs.com/package/ngpo-ui-select). 
-* [Nest ngpo page objects](#nesting-page-objects).
 * [Append custom functions to page object elements](#custom-fns)
+* Clear a date field in Chrome (Protractor Issue [#562](https://github.com/angular/protractor/issues/562)) - Use `poFns.clearByBs`.  See example in [Append custom functions to page object elements](#custom-fns).
+* [Nest ngpo page objects](#nesting-page-objects).
+* Create your own _makePo_ functions: See [`makeDefaultPo`](#makeDefaultPo).  And github/npm it: See [ngpo-ui-select](https://www.npmjs.com/package/ngpo-ui-select). 
 
 ### ngpo Functions available:  
 * [`makePos`](#makePos)
@@ -170,12 +167,11 @@ describe('client', function() {
     - getRow(n).subPo.poFn()
     - getCount
     - getValue
-* poFns  
+* poFns  (optional fns that can be attached to page objects; see [Append custom functions to page object elements](#custom-fns))
     - clickWithPause
-    - getText
-    - enterValueThenTab
     - getAttributeValue
     - makeHasClassFn
+    - clearByBs (use to clear date field in Chrome; Protractor issue #562)
 * pause
 * acceptAlert
 * dismissAlert
@@ -562,7 +558,12 @@ var els = {
         return funnyInputEl.enterValue(addedVals);
       }
     }
-  }  
+  },
+  dobInput: {
+    locator: by.model('client.dob'),
+    po: ngpo.makeDateInputPo,
+    // override clear() fn with poFns.clearByBs b/c Protractor Issue #562
+    fns: {clear: ngpo.poFns.clearByBs}},
 }; 
 
 // test example
@@ -573,6 +574,14 @@ var els = {
   .then(function(){
     expect(clientPo.funnyInput.getValue()).toBe('7');
   });
+
+  clientPo.dobInput.enterValue('01/02/1987')
+  .then(() => {
+    expect(clientPo.dobInput.getValue()).toBe('1987-01-02');
+    clientPo.dobInput.clear();  // using poFns.clearByBs
+    expect(clientPo.dobInput.getValue()).toBe(''); 
+  }); 
+
 
 ```
 
