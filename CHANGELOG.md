@@ -1,3 +1,10 @@
+# v2.2.0
+- feat: Add `clear` function to element returned from makeDdSelectPo; selects the first item in the dropdown select.  
+- feat: Add `poFns.hasClass` function.  Available as custom function.  Resolves to `true` if className parameter is a classname on the element; eg  `expect(clientPo.deleteHobbyButton.hasClass('yada')).toBe(true)` See [How to append custom functions](https://github.com/tonybranfort/ngpo#custom-fns). 
+- fix: `poFns.clearByBs` didn't return a promise.
+- Deprecating `makeButtonWithPausePo` and `poFns.clickWithPause` function. 
+- docs: Updated for above and other minor updates
+
 # v2.1.0
 - feat: Add `poFns.clearByBs` function.  Use to clear a date field in Chrome.  See Protractor Issue [#562](https://github.com/angular/protractor/issues/562).  See example in ngpo readme [How to append custom functions](https://github.com/tonybranfort/ngpo#custom-fns)
 

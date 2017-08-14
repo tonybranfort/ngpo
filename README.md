@@ -144,37 +144,47 @@ describe('client', function() {
 
 ### ngpo Functions available:  
 * [`makePos`](#makePos)
-* [`makeDefaultPo`](#makeDefaultPo)
-* [`makeTextPo`](#makeTextPo)
-    - getValue
-* [`makeInputPo`](#makeInputPo)
-    - getValue
-    - enterValue
-* [`makeDateInputPo`](#makeDateInputPo)
-    - getValue
-    - enterValue
-    - getValueMmddyyyy
-    - getValueYyyymmdd
-* [`makeButtonPo`](#makeButtonPo)
-* [`makeButtonWithPausePo`](#makeButtonWithPausePo)
-* [`makeDdSelectPo`](#makeDdSelectPo)
-    - getValue
-    - enterValue
-* [`makeParentPo`](#makeParentPo)
-    - subPo.poFn()
-* [`makeListPo`](#makeListPo)
-    - getRow
-    - getRow(n).subPo.poFn()
-    - getCount
-    - getValue
+* Make page object functions: 
+  * [`makeDefaultPo`](#makeDefaultPo)
+      - isVisible
+  * [`makeTextPo`](#makeTextPo)
+      - isVisible
+      - getValue
+  * [`makeInputPo`](#makeInputPo)
+      - isVisible
+      - getValue
+      - enterValue
+  * [`makeDateInputPo`](#makeDateInputPo)
+      - isVisible
+      - getValue
+      - enterValue
+      - getValueMmddyyyy
+      - getValueYyyymmdd
+  * [`makeButtonPo`](#makeButtonPo)
+      - isVisible
+  * [`makeButtonWithPausePo`](#makeButtonWithPausePo) (**deprecated**)
+  * [`makeDdSelectPo`](#makeDdSelectPo)
+      - isVisible
+      - getValue
+      - enterValue
+      - clear (selects first item in dd list)
+  * [`makeParentPo`](#makeParentPo)
+      - getValue 
+      - subPo.poFn()
+  * [`makeListPo`](#makeListPo)
+      - getRow
+      - getRow(n).subPo.poFn()
+      - getCount
+      - getValue
 * poFns  (optional fns that can be attached to page objects; see [Append custom functions to page object elements](#custom-fns))
-    - clickWithPause
-    - getAttributeValue
-    - makeHasClassFn
-    - clearByBs (use to clear date field in Chrome; Protractor issue #562)
-* pause
-* acceptAlert
-* dismissAlert
+    - `hasClass`, `makeHasClassFn` : `expect(clientPo.deleteHobbyButton.hasClass('yada')).toBe(true)`
+    - `clearByBs`, `makeHasClearByBs`  (use to clear date field in Chrome; Protractor issue #562) : `clientPo.dobInput.clearByBs()`
+    - `clickWithPause` (**deprecated**)
+    - `getAttributeValue`
+* Other functions
+  * pause
+  * acceptAlert
+  * dismissAlert
 
 
 #### <a name="makePos">makePos(els)</a>

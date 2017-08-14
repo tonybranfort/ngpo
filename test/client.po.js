@@ -66,6 +66,7 @@ var els = {
     po: ngpo.makeButtonWithPausePo,
     pause: 5000,
     fns: {
+      hasClass: ngpo.poFns.hasClass,
       hasYadaClass: ngpo.poFns.makeHasClassFn('yada'),
       hasBarkClass: ngpo.poFns.makeHasClassFn('bark')}
     },

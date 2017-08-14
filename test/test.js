@@ -70,6 +70,8 @@ describe('ngpo', function() {
 
       expect(clientPo.deleteHobbyButton.hasYadaClass()).toBe(true); 
       expect(clientPo.deleteHobbyButton.hasBarkClass()).toBe(false); 
+      expect(clientPo.deleteHobbyButton.hasClass('yada')).toBe(true); 
+      expect(clientPo.deleteHobbyButton.hasClass('bark')).toBe(false); 
     });
 
     it('should handle alerts', function() {
@@ -210,8 +212,8 @@ describe('ngpo', function() {
       .then(() => {
         expect(clientPo.dobInput.getValue()).toBe('1952-01-02');
         // clientPo.dobInput.clear() // FAILS on Chrome Protractor Issue # 562
-        clientPo.dobInput.clearByBs();  
-        expect(clientPo.dobInput.getValue()).toBe(''); 
+        clientPo.dobInput.clearByBs()
+        .then(() => {expect(clientPo.dobInput.getValue()).toBe('');});  
       }); 
 
     });
@@ -222,6 +224,16 @@ describe('ngpo', function() {
         expect(clientPo.funnyInput.getValue()).toBe('9');
         clientPo.funnyInput.clear();
         expect(clientPo.funnyInput.getValue()).toBe(''); 
+      }); 
+
+    });
+
+    it('should clear a select dropdown correctly (select first option)', () => {
+      clientPo.typeDd.enterValue('happy')
+      .then(() => {
+        expect(clientPo.typeDd.getValue()).toBe('happy');
+        clientPo.typeDd.clear();
+        expect(clientPo.typeDd.getValue()).toBe(''); 
       }); 
 
     });
