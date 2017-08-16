@@ -2,9 +2,26 @@ var clientPo = require('./client.po.js');
 var ngpo = require('../lib/index.js'); 
 
 describe('ngpo', function() {
-
-    it('should make a working input element', function() {
+  describe('start', () => {
+    it('should load page', () => {
       browser.get('/');
+      expect(clientPo.nameInput.isDisplayed()).toBe(true);
+    }); 
+  }); 
+
+  testGetValEnterVal();
+  testListPo(); 
+  testParentPo();
+  testMisc(); 
+  testClear();
+
+});  // end of inner describe 
+
+
+function testGetValEnterVal() {
+  describe('getValue(), enterValue()', () => {
+    it('should make a working input element', function() {
+      // browser.get('/');
       clientPo.nameInput.enterValue('franky'); 
       expect(clientPo.nameInput.getValue()).toBe('franky'); 
     });  
@@ -35,8 +52,11 @@ describe('ngpo', function() {
       expect(clientPo.typeDd.getValue()).toBe('cranky'); 
       expect(clientPo.type.getValue()).toBe('cranky'); 
     });
+  });
+}
 
-
+function testListPo() {
+  describe('makeListPo', () => {
     it('should make a working list element', function() {
       expect(clientPo.payments.count()).toBe(0);
 
@@ -56,6 +76,28 @@ describe('ngpo', function() {
 
     });
 
+    it('should implement custom functions on rows', () => {
+      clientPo.payments.getRow(0).amountInput.enterValue(8);
+      expect(clientPo.payments.getRow(0).amount.getValue()).toBe('8'); 
+
+      clientPo.payments.getRow(0).enterPayment(33); 
+      expect(clientPo.payments.getRow(0).amount.getValue()).toBe('33'); 
+
+    }); 
+
+    it('should implement custom functions on elements in getListPo', () => {
+      clientPo.payments.getRow(0).amountInput.enterValue(5);
+      expect(clientPo.payments.getRow(0).amount.getValue()).toBe('5'); 
+      clientPo.payments.getRow(0).amountInput.addTen(); 
+      expect(clientPo.payments.getRow(0).amount.getValue()).toBe('15'); 
+    });
+  });
+}
+
+function testParentPo() {
+
+  describe('makeParentPo', () => {
+
     it('should make a working parent element', function() {
       clientPo.request.rInput.enterValue('be nice'); 
       expect(clientPo.request.rInput.getValue()).toBe('be nice'); 
@@ -72,20 +114,6 @@ describe('ngpo', function() {
       expect(clientPo.deleteHobbyButton.hasBarkClass()).toBe(false); 
       expect(clientPo.deleteHobbyButton.hasClass('yada')).toBe(true); 
       expect(clientPo.deleteHobbyButton.hasClass('bark')).toBe(false); 
-    });
-
-    it('should handle alerts', function() {
-      clientPo.cityInput.enterValue('Tronxville'); 
-      expect(clientPo.cityInput.getValue()).toBe('Tronxville');
-
-      clientPo.deleteCityButton.click(); 
-      ngpo.dismissAlert();
-      expect(clientPo.cityInput.getValue()).toBe('Tronxville');
-
-      clientPo.deleteCityButton.click(); 
-      ngpo.acceptAlert();
-      expect(clientPo.cityInput.getValue()).toBe('');
-
     });
 
     it('should allow po templates to be nested without a parent element', function() {
@@ -107,23 +135,6 @@ describe('ngpo', function() {
         .toBe('strides');
       expect(clientPo.transportationParent.transportation.getValue())
         .toBe('strides');
-    });
-
-    it('should make a working button with pause allowing for pause time as option', 
-      function() {
-      clientPo.hobbyInput.enterValue('coloring'); 
-
-      expect(clientPo.hobbyInput.getValue()).toBe('coloring');
-
-      var d1 = new Date(); 
-      clientPo.deleteHobbyButton.click().then(function(){
-        var d2 = new Date();
-        var ts = d2 - d1; 
-        expect(ts).toBeGreaterThan(4999); 
-      });
-
-      expect(clientPo.hobbyInput.getValue()).toBe('');
-
     });
 
     it('should allow functions on nested elements of makeParentPos', 
@@ -163,8 +174,48 @@ describe('ngpo', function() {
 
       }); 
 
+    });
+
+
+  });
+}
+
+function testMisc() {
+
+  describe('misc', () => {
+
+    it('should handle alerts', function() {
+      clientPo.cityInput.enterValue('Tronxville'); 
+      expect(clientPo.cityInput.getValue()).toBe('Tronxville');
+
+      clientPo.deleteCityButton.click(); 
+      ngpo.dismissAlert();
+      expect(clientPo.cityInput.getValue()).toBe('Tronxville');
+
+      clientPo.deleteCityButton.click(); 
+      ngpo.acceptAlert();
+      expect(clientPo.cityInput.getValue()).toBe('');
 
     });
+
+
+    it('should make a working button with pause allowing for pause time as option', 
+      function() {
+      clientPo.hobbyInput.enterValue('coloring'); 
+
+      expect(clientPo.hobbyInput.getValue()).toBe('coloring');
+
+      var d1 = new Date(); 
+      clientPo.deleteHobbyButton.click().then(function(){
+        var d2 = new Date();
+        var ts = d2 - d1; 
+        expect(ts).toBeGreaterThan(4999); 
+      });
+
+      expect(clientPo.hobbyInput.getValue()).toBe('');
+
+    });
+
 
     it('should handle isVisible for ng-show', function() {
       expect(clientPo.showme.isPresent()).toBe(true);
@@ -196,8 +247,11 @@ describe('ngpo', function() {
         expect(clientPo.funnyInput.getValue()).toBe('7');
       });
     });
+  });
+}
 
-
+function testClear() {
+  describe('clear', () => {
     it('should clear text values correctly', () => {
       clientPo.nameInput.enterValue('Bobbyrama')
       .then(() => {
@@ -237,5 +291,8 @@ describe('ngpo', function() {
       }); 
 
     });
+  });
+}
 
-});  // end of inner describe 
+
+

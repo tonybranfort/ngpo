@@ -30,10 +30,22 @@ var els = {
   payments: {
     locator: by.repeater('payment in payments'),
     po: ngpo.makeListPo,
+    fns: {
+      enterPayment: function(rowEl, options, paymentAmt) {
+        return rowEl.amountInput.enterValue(paymentAmt);
+      }
+    },
     els: {
       amountInput: {
         locator: by.model('payment.amount'),
-        po: ngpo.makeInputPo},
+        po: ngpo.makeInputPo,
+        fns: {
+          addTen: function(el, options) {
+            return el.getValue()
+            .then((val) => {return el.enterValue(Number(val) + 10);});
+          }
+        }
+      },
       amount: {
         locator: by.binding('payment.amount'),
         po: ngpo.makeTextPo},
