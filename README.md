@@ -17,7 +17,7 @@ Create page objects with helper functions for [AngularJs Protractor](http://www.
 
 Install with `npm install ngpo`.  
 
-**ngpo v2.x**: requires nodejs 6.x or greater (no breaking api changes from ngpo v1.x).  Tested on Protractor 5.1.2 with Chrome and chromedriver 2.31. 
+**ngpo v2.x**: requires nodejs 6.x or greater (no breaking api changes from ngpo v1.x).  Tested with angularJS v1.5.0 & 1.6.5, Protractor v5.1.2, Chrome v60.0, and chromedriver 2.31. 
 
 **ngpo v1.x**: Tested with Protractor versions 2.5 and 5.1.
 
