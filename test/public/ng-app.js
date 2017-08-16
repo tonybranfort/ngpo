@@ -17,7 +17,8 @@ function MyCtrl($scope) {
     'cranky',
     'happy',
     'loaded',
-    'zenish'
+    'zenish',
+    'sp acy  '
   ];
 
   $scope.payments = [

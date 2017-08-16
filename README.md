@@ -5,13 +5,12 @@ Create page objects with helper functions for [AngularJs Protractor](http://www.
 * Protractor tests as quick to write, easy to read and ignorant of the page elements as possible.
 * Simple and consistent protractor page objects which can be nested.  
 * Consistent Protractor test methods across applicable elements and html widgets including: 
-  - **enterValue** `clientPo.name.enterValue('franky');` 
-  - **getValue** `expect(clientPo.name.getValue()).toBe('franky');`
-  - **isVisible** (true if both isPresent and isDisplayed) `expect(clientPo.name.isVisible()).toBe(true);` 
+  - [enterValue](#enterValue) `clientPo.name.enterValue('franky');` 
+  - [getValue](#getValue) `expect(clientPo.name.getValue()).toBe('franky');`
+  - [isVisible](#isVisible) (true if both isPresent and isDisplayed) `expect(clientPo.name.isVisible()).toBe(true);` 
   - No impact to existing protractor methods (unless explicitly intended)
-* Simple and consistent way of accessing repeating and nested page elements. 
-	- listElement.getRow(n).someElementInList `expect(clientPo.payments.getRow(1).amount.getValue()).toBe('423');`
-* Ability to attach custom functions to page objects.
+* Simple and consistent way of accessing repeating and nested page elements `expect(clientPo.payments.getRow(1).amount.getValue()).toBe('423');`
+* Ability to easily attach custom functions to page objects.
 * Ability to easily incorporate other html widgets into ngpo. 
 * Page Object code that's not repeated.  
 
@@ -136,40 +135,38 @@ describe('client', function() {
 
 ## Documentation
 
-#### How to 
-* [Append custom functions to page object elements](#custom-fns)
-* Clear a date field in Chrome (Protractor Issue [#562](https://github.com/angular/protractor/issues/562)) - Use `poFns.clearByBs`.  See example in [Append custom functions to page object elements](#custom-fns).
-* [Nest ngpo page objects](#nesting-page-objects).
-* Create your own _makePo_ functions: See [`makeDefaultPo`](#makeDefaultPo).  And github/npm it: See [ngpo-ui-select](https://www.npmjs.com/package/ngpo-ui-select). 
-
 ### ngpo Functions available:  
 * [`makePos`](#makePos)
-* Make page object functions: 
+* Make page object functions and the functions attached (in addition to all expected Protractoor functions): 
   * [`makeDefaultPo`](#makeDefaultPo)
-      - isVisible
+      - [isVisible](#isVisible)
   * [`makeTextPo`](#makeTextPo)
-      - isVisible
-      - getValue
+      - [getValue](#getValue)
+      - [getValueTrim](#getValueTrim)  
+      - [isVisible](#isVisible)
   * [`makeInputPo`](#makeInputPo)
-      - isVisible
-      - getValue
-      - enterValue
+      - [enterValue](#enterValue)
+      - [getValue](#getValue)
+      - [getValueTrim](#getValueTrim)  
+      - [isVisible](#isVisible)
   * [`makeDateInputPo`](#makeDateInputPo)
-      - isVisible
-      - getValue
-      - enterValue
+      - [enterValue](#enterValue)
+      - [getValue](#getValue)
+      - [getValueTrim](#getValueTrim)  
+      - [isVisible](#isVisible)
       - getValueMmddyyyy
       - getValueYyyymmdd
   * [`makeButtonPo`](#makeButtonPo)
-      - isVisible
+      - [isVisible](#isVisible)
   * [`makeButtonWithPausePo`](#makeButtonWithPausePo) (**deprecated**)
   * [`makeDdSelectPo`](#makeDdSelectPo)
-      - isVisible
-      - getValue
-      - enterValue
+      - [enterValue](#enterValue)
+      - [getValue](#getValue)
+      - [getValueTrim](#getValueTrim)  
+      - [isVisible](#isVisible)
       - clear (selects first item in dd list)
   * [`makeParentPo`](#makeParentPo)
-      - getValue 
+      - [getValue](#getValue)
       - subPo.poFn()
   * [`makeListPo`](#makeListPo)
       - getRow
@@ -187,6 +184,65 @@ describe('client', function() {
   * dismissAlert
 
 
+#### How to 
+* [Append custom functions to page object elements](#custom-fns)
+* Clear a date field in Chrome (Protractor Issue [#562](https://github.com/angular/protractor/issues/562)) - Use `poFns.clearByBs`.  See example in [Append custom functions to page object elements](#custom-fns).
+* [Nest ngpo page objects](#nesting-page-objects).
+* Create your own _makePo_ functions: See [`makeDefaultPo`](#makeDefaultPo).  And github/npm it: See [ngpo-ui-select](https://www.npmjs.com/package/ngpo-ui-select). 
+
+
+### ngpo functions attached to page objects 
+#### <a name="enterValue">enterValue()</a>
+Enters a value into a page element and returns a Promise. How value is entered depends on the page element.  Input elements use: 
+```javascript
+  return el
+    .click()
+    .clear()
+    .sendKeys(value)
+    .sendKeys(protractor.Key.TAB);
+
+```
+Example: 
+``` javascript
+clientPo.nameInput.enterValue('franky'); 
+expect(clientPo.nameInput.getValue()).toBe('franky'); 
+```
+
+#### <a name="getValue">getValue()</a>
+Returns the value of the pageObject as a Promise. How value is retrieved depends on the page element: 
+* makeTextPo() uses Protractor getText()
+* input POs (makeInputPo, makeDateInputPo) use Protractor `getAttribute('value')`
+* makeDdSelectPo uses el.$('option:checked').getText()
+``` javascript
+clientPo.nameInput.enterValue('franky'); 
+expect(clientPo.nameInput.getValue()).toBe('franky'); // input
+expect(clientPo.name.getValue()).toBe('franky'); // text by.binding
+```
+
+#### <a name="getValueTrim">getValueTrim()</a>
+Returns pageObject.getValue() to a string.trim() as a Promise.
+```javascript
+clientPo.nameInput.enterValue('  b o bb y '); 
+expect(clientPo.nameInput.getValueTrim()).toBe('b o bb y'); 
+
+```
+
+#### <a name="isVisible">isVisible()</a>
+Returns true as a Promise if isPresent and isDisplayed.
+```javascript
+expect(clientPo.showme.isPresent()).toBe(true);
+expect(clientPo.showme.isDisplayed()).toBe(true);
+expect(clientPo.showme.isVisible()).toBe(true);
+// hide showme element
+clientPo.showmeButton.click()
+.then(function() {
+  expect(clientPo.showme.isPresent()).toBe(true);
+  expect(clientPo.showme.isDisplayed()).toBe(false);
+  expect(clientPo.showme.isVisible()).toBe(false);
+});
+```
+
+### ngpo api functions
 #### <a name="makePos">makePos(els)</a>
 Returns a Page Object: An object-literal of Protractor ElementFinder objects possibly with methods appended.  Methods appended are based on the els object passed in. 
 

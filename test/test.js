@@ -14,6 +14,7 @@ describe('ngpo', function() {
   testParentPo();
   testMisc(); 
   testClear();
+  testGetValueTrim();
 
 });  // end of inner describe 
 
@@ -294,5 +295,42 @@ function testClear() {
   });
 }
 
+
+function testGetValueTrim() {
+  describe('getValueTrim()', () => {
+    it('should work for inputPo that is type=\'text\'', function() {
+      clientPo.nameInput.enterValue('  b o bb y '); 
+      expect(clientPo.nameInput.getValueTrim()).toBe('b o bb y'); 
+    });  
+
+    it('should work for textPo', function() {
+      expect(clientPo.nameInput.getValue()).toBe('  b o bb y '); 
+      expect(clientPo.name.getValueTrim()).toBe('b o bb y');
+    });  
+
+    it('should work for inputPo that is type=\'number\'', function() {
+      clientPo.funnyInput.enterValue(44); 
+      expect(clientPo.funnyInput.getValueTrim()).toBe('44'); 
+    });  
+
+    it('should work for inputPo that is type=\'date\'', function() {
+      clientPo.funnyInput.enterValue(44); 
+      expect(clientPo.funnyInput.getValueTrim()).toBe('44'); 
+    });  
+
+    it('should work for inputPo that is type=\'date\'', function() {
+      clientPo.dobInput.enterValue('03/05/2015'); 
+      expect(clientPo.dobInput.getValueTrim()).toBe('2015-03-05'); 
+    });  
+
+    it('should work for inputPo that is type=\'date\'', function() {
+      clientPo.typeDd.enterValue('sp acy  '); 
+      expect(clientPo.typeDd.getValue()).toBe('sp acy  '); 
+      expect(clientPo.type.getValueTrim()).toBe('sp acy'); 
+    });
+
+  });
+
+}
 
 
