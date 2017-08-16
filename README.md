@@ -53,12 +53,11 @@ var clientPo = require('client.po.js');
 describe('client', function() {
 
     it('should allow name to be modified', function() {
-      browser.get('/');
-
       clientPo.nameInput.enterValue('franky'); 
       expect(clientPo.nameInput.getValue()).toBe('franky'); 
       expect(clientPo.name.getValue()).toBe('franky');
 
+    it('should clear the name', function() {
       clientPo.clearNameButton.click();
       expect(clientPo.name.getValue()).toBe('');
       expect(clientPo.nameInput.getValue()).toBe('');
@@ -110,21 +109,28 @@ describe('client', function() {
     it('should have working payment inputs', function() {
       expect(clientPo.payments.count()).toBe(0);
 
-      clientPo.addPaymentButton.click();
-      expect(clientPo.payments.count()).toBe(1);
-
-      // getRow() is the ngpo method to retrieve the row's nested elements.  
-      // ngpo uses getRow() so as to not overwrite the get() method. 
-      clientPo.payments.getRow(0).amountInput.enterValue(5);
-      expect(clientPo.payments.getRow(0).amountInput.getValue()).toBe('5'); 
-      expect(clientPo.payments.getRow(0).amount.getValue()).toBe('5'); 
+      clientPo.addPaymentButton.click()
+      .then(() => {
+        expect(clientPo.payments.count()).toBe(1);
+        // getRow() is the ngpo method to retrieve the row's nested elements.  
+        // ngpo uses getRow() so as to not overwrite the get() method. 
+        return clientPo.payments.getRow(0).amountInput.enterValue(5);
+      })
+      .then(() => {
+        expect(clientPo.payments.getRow(0).amountInput.getValue()).toBe('5'); 
+        expect(clientPo.payments.getRow(0).amount.getValue()).toBe('5'); 
       
-      clientPo.addPaymentButton.click();
-      expect(clientPo.payments.count()).toBe(2);
-      expect(clientPo.payments.getRow(0).amount.getValue()).toBe('5'); 
-      clientPo.payments.getRow(1).amountInput.enterValue('423');
-      expect(clientPo.payments.getRow(1).amountInput.getValue()).toBe('423'); 
-      expect(clientPo.payments.getRow(1).amount.getValue()).toBe('423'); 
+        return clientPo.addPaymentButton.click();
+      })
+      .then(() => {
+        expect(clientPo.payments.count()).toBe(2);
+        expect(clientPo.payments.getRow(0).amount.getValue()).toBe('5'); 
+        return clientPo.payments.getRow(1).amountInput.enterValue('423');
+      })
+      .then(() => {
+        expect(clientPo.payments.getRow(1).amountInput.getValue()).toBe('423'); 
+        expect(clientPo.payments.getRow(1).amount.getValue()).toBe('423'); 
+      }); 
 
     });
 

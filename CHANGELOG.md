@@ -1,3 +1,8 @@
+# v2.3.0
+- feat: Add function getValueTrim ([Issue #7](https://github.com/tonybranfort/ngpo/issues/7))
+- fix: Custom functiions not being attached to elements within a row using `makeListPo` ([Issue #8](https://github.com/tonybranfort/ngpo/issues/8)) 
+- Update test to angularJs v1.6.5
+
 # v2.2.0
 - feat: Add `clear` function to element returned from makeDdSelectPo; selects the first item in the dropdown select.  
 - feat: Add `poFns.hasClass` function.  Available as custom function.  Resolves to `true` if className parameter is a classname on the element; eg  `expect(clientPo.deleteHobbyButton.hasClass('yada')).toBe(true)` See [How to append custom functions](https://github.com/tonybranfort/ngpo#custom-fns). 

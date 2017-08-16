@@ -1,6 +1,6 @@
 {
   "name": "ngpo",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Simple template to create page objects for AngularJS Protractor tests",
   "main": "lib/index.js",
   "dependencies": {
