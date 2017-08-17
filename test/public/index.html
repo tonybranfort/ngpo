@@ -46,6 +46,11 @@
         <tr ng-repeat="payment in payments">
           <td><input ng-model=payment.amount></td>
           <td>{{payment.amount}}</td>
+          <td>
+            <div id="daysLateWrapper">
+              <input ng-model=payment.daysLate>
+            </div>
+          </td>
         </tr>
       </table>
     </div>

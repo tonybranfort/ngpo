@@ -49,8 +49,24 @@ var els = {
       amount: {
         locator: by.binding('payment.amount'),
         po: ngpo.makeTextPo},
-    },
-  },
+      daysLateWrapper: {
+        locator: by.id('daysLateWrapper'),
+        po: ngpo.makeParentPo, 
+        fns: {
+          isPastDue: 
+            function(dlWrPo, options) {
+              return dlWrPo.daysLate.getValue()
+              .then((val) => {return Number(val) > 60;}) ;
+            }
+        },
+        els: {
+          daysLate: {
+            locator: by.model('payment.daysLate'),
+            po: ngpo.makeInputPo},
+        }
+      } //end of daysLateWrapper
+    } // end of payments els
+  }, // end of payments
   request: {
     locator: by.id('request'),
     po: ngpo.makeParentPo,

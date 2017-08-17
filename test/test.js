@@ -92,6 +92,22 @@ function testListPo() {
       clientPo.payments.getRow(0).amountInput.addTen(); 
       expect(clientPo.payments.getRow(0).amount.getValue()).toBe('15'); 
     });
+
+    it('should implement custom functions on a sub makeParentPo', () => {
+      clientPo.payments.getRow(0).daysLateWrapper.daysLate.enterValue(5);
+      expect(clientPo.payments.getRow(0).daysLateWrapper.daysLate.getValue())
+        .toBe('5');
+      // isPastDue - daysLate > 60
+      expect(clientPo.payments.getRow(0).daysLateWrapper.isPastDue())
+        .toBe(false);
+
+      clientPo.payments.getRow(0).daysLateWrapper.daysLate.enterValue(70);
+      expect(clientPo.payments.getRow(0).daysLateWrapper.daysLate.getValue())
+        .toBe('70');
+      expect(clientPo.payments.getRow(0).daysLateWrapper.isPastDue())
+        .toBe(true);
+
+    });
   });
 }
 
