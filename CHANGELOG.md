@@ -1,3 +1,6 @@
+# v2.3.1
+- fix [#9](https://github.com/tonybranfort/ngpo/issues/9): Custom functions not attached when makeParentPo inside of makeListPo
+
 # v2.3.0
 - feat: Add function getValueTrim ([Issue #7](https://github.com/tonybranfort/ngpo/issues/7))
 - fix: Custom functiions not being attached to elements within a row using `makeListPo` ([Issue #8](https://github.com/tonybranfort/ngpo/issues/8)) 
